@@ -7,9 +7,9 @@
 
 ## Descripción General
 
-Este repositorio contiene proyectos educativos centrados en el aprendizaje y uso de la librería **Lit** (LitElement / lit-html) para la creación de Web Components modernos. Aquí se combinan ejemplos prácticos que muestran cómo construir componentes reutilizables con Lit, aprovechar el Shadow DOM para encapsular estilos y estructura, y organizar el código con ES Modules.
+Este repositorio contiene proyectos educativos centrados en el aprendizaje y uso de la librería **Lit** (LitElement / lit-html) junto con **Vite** como herramienta de desarrollo y bundling. Los ejemplos muestran cómo construir Web Components con Lit, usar templates y propiedades reactivas, encapsular estilos con Shadow DOM y organizar el código con ES Modules.
 
-Los proyectos están organizados en carpetas independientes y se pueden ejecutar fácilmente en un servidor local o mediante scripts de desarrollo (`npm run dev`) cuando estén disponibles.
+Los proyectos están organizados en carpetas independientes y se pueden ejecutar localmente. Cuando los proyectos incluyen un `package.json` con scripts, se recomienda usar `npm run dev` (Vite) para levantar un servidor de desarrollo con HMR; como alternativa puede usarse Live Server o un servidor HTTP simple.
 
 ---
 
@@ -81,11 +81,12 @@ Y luego abrir:
 
 ## Conceptos Clave Tratados
 
-- Lit (LitElement / lit-html): creación de componentes con templates declarativos, propiedades reactivas y directivas de plantilla
-- Web Components: definición de elementos personalizados, ciclos de vida y `customElements.define()`
+- Lit (LitElement / lit-html): creación de componentes con templates declarativos, propiedades reactivas, directivas de plantilla y el ciclo de vida propio de Lit
+- Vite: servidor de desarrollo rápido, Hot Module Replacement (HMR), bundling eficiente y manejo de assets (recomendado para `npm run dev`)
+- Web Components: definición de elementos personalizados, ciclos de vida y registro con `customElements.define()`
 - Shadow DOM: encapsulación de estilos y aislamiento de la estructura interna del componente
 - ES Modules: `import` / `export` para organizar el código en módulos reutilizables
-- Comunicación entre componentes: uso de propiedades, atributos y eventos personalizados (`CustomEvent`) para pasar datos y reaccionar a cambios
+- Comunicación entre componentes: paso de datos mediante propiedades y atributos, y uso de eventos personalizados (`CustomEvent`) para comunicación padre/hijo
 
 ---
 

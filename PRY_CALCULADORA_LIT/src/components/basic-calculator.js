@@ -38,7 +38,7 @@ export class BasicCalculator extends LitElement {
     }
 
     // ---------------------------
-    // MÉTODOS DE LA CALCULADORA
+    // METODOS DE LA CALCULADORA
     // ---------------------------
     appendNumber(num) {
         if (this.resetNext) {
@@ -53,9 +53,21 @@ export class BasicCalculator extends LitElement {
     }
 
     chooseOp(op) {
-        this.firstValue = parseFloat(this.display);
+      if (this.display === "Error") return;
+
+      // Si ya se seleccionó un operador y aún no se ingresó el siguiente número,
+      // permitir cambiar el operador (no concatenar operadores como '++').
+      if (this.resetNext) {
         this.operator = op;
-        this.resetNext = true;
+        this.display = op;
+        return;
+      }
+
+      // Flujo normal: guardar el primer valor y mostrar el operador en pantalla.
+      this.firstValue = parseFloat(this.display);
+      this.operator = op;
+      this.resetNext = true;
+      this.display = op;
     }
 
     clear() {
@@ -66,9 +78,11 @@ export class BasicCalculator extends LitElement {
     }
 
     compute() {
-        if (this.firstValue === null || !this.operator) return;
+      if (this.firstValue === null || !this.operator) return;
 
-        const second = parseFloat(this.display);
+      // Evitar intentar calcular si el display contiene el operador (no se ingresó segundo número)
+      const second = parseFloat(this.display);
+      if (isNaN(second)) return;
         let result = 0;
 
         switch (this.operator) {
@@ -94,7 +108,6 @@ export class BasicCalculator extends LitElement {
 
       <div class="container p-3 bg-dark text-white rounded">
 
-        <!-- Pantalla -->
         <div class="row mb-3">
           <div class="col">
             <input 
@@ -105,7 +118,6 @@ export class BasicCalculator extends LitElement {
           </div>
         </div>
 
-        <!-- 7 - 8 - 9 - / -->
         <div class="row g-2 mb-2">
           <div class="col-3">
             <button class="btn btn-light w-100 py-3" @click=${() => this.appendNumber("7")}>7</button>
@@ -121,7 +133,6 @@ export class BasicCalculator extends LitElement {
           </div>
         </div>
 
-        <!-- 4 - 5 - 6 - * -->
         <div class="row g-2 mb-2">
           <div class="col-3">
             <button class="btn btn-light w-100 py-3" @click=${() => this.appendNumber("4")}>4</button>
@@ -137,7 +148,6 @@ export class BasicCalculator extends LitElement {
           </div>
         </div>
 
-        <!-- 1 - 2 - 3 - - -->
         <div class="row g-2 mb-2">
           <div class="col-3">
             <button class="btn btn-light w-100 py-3" @click=${() => this.appendNumber("1")}>1</button>
@@ -153,7 +163,6 @@ export class BasicCalculator extends LitElement {
           </div>
         </div>
 
-        <!-- 0 - . - AC - + -->
         <div class="row g-2 mb-2">
           <div class="col-3">
             <button class="btn btn-light w-100 py-3" @click=${() => this.appendNumber("0")}>0</button>
@@ -169,7 +178,6 @@ export class BasicCalculator extends LitElement {
           </div>
         </div>
 
-        <!-- = (full width) -->
         <div class="row g-2">
           <div class="col-12">
             <button class="btn btn-success w-100 py-3" @click=${() => this.compute()}>=</button>
